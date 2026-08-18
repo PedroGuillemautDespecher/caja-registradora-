@@ -1,14 +1,11 @@
-﻿const string NombreComercio = "KIOSKO DEL RECREO";
-Console.WriteLine(NombreComercio);
-Console.Write("Nombre del Cajero");
-string NombreCajero = Console.ReadLine();
-Console.WriteLine($"Bienvenida {NombreCajero}, Caja Abierta");
+﻿const string NombreComercio = "KIOSCO EL RECREO";
+const decimal DescuentoAlto = 0.10m;
+const decimal DescuentoMedio = 0.05m;
 
-Console.WriteLine("Ingrese Producto:");
-string Producto = Console.ReadLine();
-Console.Write("Ingrese Precio");
-decimal precio = Convert.ToDecimal(Console.ReadLine());
-Console.WriteLine($"Producto {Producto} Precio {precio}");
+Console.WriteLine($"=== {NombreComercio} ===");
+Console.Write("Nombre del cajero: ");
+string cajero = Console.ReadLine();
+Console.WriteLine($"Bienvenida, {cajero}. Caja abierta.\n");
 
 decimal totalVenta = 0;
 int cantidadProductos = 0;
@@ -36,8 +33,25 @@ do
             break;
 
         case "2":
+            decimal subtotal = totalVenta;
+            decimal porcentajeDescuento = 0;
+
+            if (subtotal > 50000)
+            {
+                porcentajeDescuento = DescuentoAlto;
+            }
+            else if (subtotal > 20000)
+            {
+                porcentajeDescuento = DescuentoMedio;
+            }
+
+            decimal montoDescuento = subtotal * porcentajeDescuento;
+            decimal totalFinal = subtotal - montoDescuento;
+
             Console.WriteLine($"\nCantidad de productos: {cantidadProductos}");
-            Console.WriteLine($"Total a pagar: {totalVenta:C}");
+            Console.WriteLine($"Subtotal: {subtotal:C}");
+            Console.WriteLine($"Descuento ({porcentajeDescuento * 100}%): -{montoDescuento:C}");
+            Console.WriteLine($"Total a pagar: {totalFinal:C}");
             break;
 
         default:
@@ -47,3 +61,4 @@ do
 
 } while (opcion != "2");
 
+Console.ReadLine();
